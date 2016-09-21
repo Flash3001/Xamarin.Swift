@@ -6,10 +6,11 @@ This project is try to provide all Swift3 runtime libraries in a organized way.
 Each runtime dependecy will be provided through a NuGet package, all of them will depend on Xamarin.Swift3 package which only include a MSBuild target file for moving the denpendencies when using Simulator and Device. 
 
 <h2>List of NuGet packages</h2>
-Moves runtime files around:
+<h4>Moves runtime files around:</h4>
 https://www.nuget.org/packages/Xamarin.Swift3/
 
-Libraries
+<h4>MovesLibraries:</h4>
+https://www.nuget.org/packages/Xamarin.Swift3.Core/
 TO-DO 
 
 <h2>Finding out which packages to include</h2>
