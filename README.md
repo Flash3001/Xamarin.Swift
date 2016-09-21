@@ -23,7 +23,7 @@ Use this script to create this SwiftSupport folder: https://github.com/Flash3001
 
 
 <h2>License</h2>
-Copyright 2016 Lucas Teixeira, Daniel Cohen Gindi & Philipp Jahoda
+Copyright 2016 Lucas Teixeira
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
