@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xamarin.Swift23.Support</id>
+    <version>2.3.0.0</version>
+    <title>Xamarin.Swift23.Support</title>
+    <authors>Flash3001</authors>
+    <owners>Flash3001</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Gives Xamarin.iOS bindings support for core Swift 2.3 libraries.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Swift SwiftSupport 2.3</tags>
+  </metadata>
+</package>
