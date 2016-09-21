@@ -49,5 +49,9 @@
     <Folder Include="Frameworks\" />
     <Folder Include="SwiftFrameworksSimulator\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Frameworks\libswiftWatchKit.dylib" />
+    <Content Include="SwiftFrameworksSimulator\libswiftWatchKit.dylib" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

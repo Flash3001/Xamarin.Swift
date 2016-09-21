@@ -50,5 +50,9 @@
     <Folder Include="Frameworks\" />
     <Folder Include="SwiftFrameworksSimulator\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="SwiftFrameworksSimulator\libswiftCoreAudio.dylib" />
+    <Content Include="Frameworks\libswiftCoreAudio.dylib" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

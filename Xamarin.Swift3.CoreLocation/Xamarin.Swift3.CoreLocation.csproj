@@ -49,5 +49,9 @@
     <Folder Include="Frameworks\" />
     <Folder Include="SwiftFrameworksSimulator\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Frameworks\libswiftCoreLocation.dylib" />
+    <Content Include="SwiftFrameworksSimulator\libswiftCoreLocation.dylib" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
