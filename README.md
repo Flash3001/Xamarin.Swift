@@ -9,7 +9,7 @@ Each runtime dependecy will be provided through a NuGet package, all of them wil
 <h4>Moves runtime files around:</h4>
 https://www.nuget.org/packages/Xamarin.Swift3/
 
-<h4>MovesLibraries:</h4>
+<h4>Libraries:</h4>
 https://www.nuget.org/packages/Xamarin.Swift3.Core/
 TO-DO 
 
