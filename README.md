@@ -10,36 +10,36 @@ Each runtime dependecy will be provided through a NuGet package, all of them wil
 https://www.nuget.org/packages/Xamarin.Swift3/
 
 <h4>Libraries:</h4>
-https://www.nuget.org/packages/Xamarin.Swift3.AssetsLibrary/
-https://www.nuget.org/packages/Xamarin.Swift3.AVFoundation/
-https://www.nuget.org/packages/Xamarin.Swift3.CallKit/
-https://www.nuget.org/packages/Xamarin.Swift3.CloudKit/
-https://www.nuget.org/packages/Xamarin.Swift3.Contacts/
-https://www.nuget.org/packages/Xamarin.Swift3.Core/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreAudio/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreData/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreGraphics/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreImage/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreLocation/
-https://www.nuget.org/packages/Xamarin.Swift3.CoreMedia/
-https://www.nuget.org/packages/Xamarin.Swift3.Darwin/
-https://www.nuget.org/packages/Xamarin.Swift3.Dispatch/
-https://www.nuget.org/packages/Xamarin.Swift3.Foundation/
-https://www.nuget.org/packages/Xamarin.Swift3.GameplayKit/
-https://www.nuget.org/packages/Xamarin.Swift3.GLKit/
-https://www.nuget.org/packages/Xamarin.Swift3.HomeKit/
-https://www.nuget.org/packages/Xamarin.Swift3.Intents/
-https://www.nuget.org/packages/Xamarin.Swift3.ObjectiveC/
-https://www.nuget.org/packages/Xamarin.Swift3.OS/
-https://www.nuget.org/packages/Xamarin.Swift3.Photos/
-https://www.nuget.org/packages/Xamarin.Swift3.RemoteMirror/
-https://www.nuget.org/packages/Xamarin.Swift3.SceneKit/
-https://www.nuget.org/packages/Xamarin.Swift3.SIMD/
-https://www.nuget.org/packages/Xamarin.Swift3.SpriteKit/
-https://www.nuget.org/packages/Xamarin.Swift3.SwiftOnoneSupport/
-https://www.nuget.org/packages/Xamarin.Swift3.UIKit/
-https://www.nuget.org/packages/Xamarin.Swift3.WatchKit/
-https://www.nuget.org/packages/Xamarin.Swift3.XCTest/
+- https://www.nuget.org/packages/Xamarin.Swift3.AssetsLibrary/
+- https://www.nuget.org/packages/Xamarin.Swift3.AVFoundation/
+- https://www.nuget.org/packages/Xamarin.Swift3.CallKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.CloudKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.Contacts/
+- https://www.nuget.org/packages/Xamarin.Swift3.Core/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreAudio/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreData/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreGraphics/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreImage/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreLocation/
+- https://www.nuget.org/packages/Xamarin.Swift3.CoreMedia/
+- https://www.nuget.org/packages/Xamarin.Swift3.Darwin/
+- https://www.nuget.org/packages/Xamarin.Swift3.Dispatch/
+- https://www.nuget.org/packages/Xamarin.Swift3.Foundation/
+- https://www.nuget.org/packages/Xamarin.Swift3.GameplayKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.GLKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.HomeKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.Intents/
+- https://www.nuget.org/packages/Xamarin.Swift3.ObjectiveC/
+- https://www.nuget.org/packages/Xamarin.Swift3.OS/
+- https://www.nuget.org/packages/Xamarin.Swift3.Photos/
+- https://www.nuget.org/packages/Xamarin.Swift3.RemoteMirror/
+- https://www.nuget.org/packages/Xamarin.Swift3.SceneKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.SIMD/
+- https://www.nuget.org/packages/Xamarin.Swift3.SpriteKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.SwiftOnoneSupport/
+- https://www.nuget.org/packages/Xamarin.Swift3.UIKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.WatchKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.XCTest/
 
 <h2>Walkthrough</h2>
 If you need a full walkthrough on How To Bind Swift Libries, you can find it here: http://stackoverflow.com/documentation/xamarin.ios/6091/binding-swift-libraries
