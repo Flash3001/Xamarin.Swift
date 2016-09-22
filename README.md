@@ -3,7 +3,7 @@
 Xamarin doesn't yet provide support for binding Swift libraries. 
 This project is a try to provide all Swift3 runtime/libraries in a organized way. 
 
-Each library dependecy will be provided through a NuGet package, all of them will depend on Xamarin.Swift3 package which only include a MSBuild target file for moving the denpendencies when using Simulator and Device. 
+Each library dependecy is provided through a NuGet package, all of them will depend on Xamarin.Swift3 package which only include a MSBuild target file for moving the denpendencies when using Simulator and Device. 
 
 Do not include them all as dependency in your project as it will increase the final App size. Use just what you need.
 
