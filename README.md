@@ -10,6 +10,8 @@ Each runtime dependecy will be provided through a NuGet package, all of them wil
 https://www.nuget.org/packages/Xamarin.Swift3/
 
 <h4>Libraries:</h4>
+Do not include them all as dependecy in your project as it will increase the final App size. Use just what you need. 
+
 - https://www.nuget.org/packages/Xamarin.Swift3.AssetsLibrary/
 - https://www.nuget.org/packages/Xamarin.Swift3.AVFoundation/
 - https://www.nuget.org/packages/Xamarin.Swift3.CallKit/
