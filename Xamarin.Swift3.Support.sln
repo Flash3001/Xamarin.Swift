@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift3", "Xamarin.Swift3\Xamarin.Swift3.csproj", "{B837D96F-AA4E-4CA4-8767-8E5A1A2C210E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift3.Core", "Xamarin.Swift3.Core\Xamarin.Swift3.Core.csproj", "{1C165FBB-615D-482A-B3F3-71D6C2C9476A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift3.QuartzCore", "Xamarin.Swift3.QuartzCore\Xamarin.Swift3.QuartzCore.csproj", "{1C165FBB-615D-482A-B3F3-71D6C2C9476A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift3.Contacts", "Xamarin.Swift3.Contacts\Xamarin.Swift3.Contacts.csproj", "{3A63385A-4F18-4AFF-B8BE-AF01AE030374}"
 EndProject
