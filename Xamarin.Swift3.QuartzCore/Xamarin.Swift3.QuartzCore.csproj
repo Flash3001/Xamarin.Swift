@@ -6,8 +6,8 @@
     <ProjectGuid>{1C165FBB-615D-482A-B3F3-71D6C2C9476A}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Xamarin.Swift3.Core</RootNamespace>
-    <AssemblyName>Xamarin.Swift3.Core</AssemblyName>
+    <RootNamespace>Xamarin.Swift3.QuartzCore</RootNamespace>
+    <AssemblyName>Xamarin.Swift3.QuartzCore</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
