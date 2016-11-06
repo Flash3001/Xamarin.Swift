@@ -31,10 +31,12 @@ https://www.nuget.org/packages/Xamarin.Swift3/
 - https://www.nuget.org/packages/Xamarin.Swift3.GameplayKit/
 - https://www.nuget.org/packages/Xamarin.Swift3.GLKit/
 - https://www.nuget.org/packages/Xamarin.Swift3.HomeKit/
+- https://www.nuget.org/packages/Xamarin.Swift3.MapKit/
 - https://www.nuget.org/packages/Xamarin.Swift3.Intents/
 - https://www.nuget.org/packages/Xamarin.Swift3.ObjectiveC/
 - https://www.nuget.org/packages/Xamarin.Swift3.OS/
 - https://www.nuget.org/packages/Xamarin.Swift3.Photos/
+- https://www.nuget.org/packages/Xamarin.Swift3.QuartzCore/
 - https://www.nuget.org/packages/Xamarin.Swift3.RemoteMirror/
 - https://www.nuget.org/packages/Xamarin.Swift3.SceneKit/
 - https://www.nuget.org/packages/Xamarin.Swift3.SIMD/
