@@ -1,7 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3/Properties/AssemblyInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs">
     <Files>
       <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="13" Column="34" />
+      <File FileName="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs" Line="20" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
