@@ -9,10 +9,10 @@
 	</CreateAppBundleDependsOn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)' == 'iPhone'">
-	<CodesignDependsOn>
-		$(CodesignDependsOn);
+	<_CompileToNativeDependsOn>
 		_RemoveExtraLibs;
-	</CodesignDependsOn>
+		$(_CompileToNativeDependsOn);
+	</_CompileToNativeDependsOn>
   </PropertyGroup>
   
   <Target Name="_CopySwiftLibsSimulator">
