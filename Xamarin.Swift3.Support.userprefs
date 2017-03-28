@@ -1,8 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs">
     <Files>
-      <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="13" Column="34" />
-      <File FileName="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs" Line="20" Column="33" />
+      <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="20" Column="36" />
+      <File FileName="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs" Line="20" Column="27" />
+      <File FileName="Xamarin.Swift3.QuartzCore/Properties/AssemblyInfo.cs" Line="20" Column="34" />
+      <File FileName="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs" Line="20" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -10,6 +12,7 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
   <DisabledProjects>
     <String>Xamarin.Swift3.Support/Xamarin.Swift3.csproj</String>
   </DisabledProjects>
