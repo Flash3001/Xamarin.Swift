@@ -16,7 +16,7 @@
     <copyright>Copyright 2016</copyright>
     <tags>swift3 runtime xamarin $lib$</tags>
     <dependencies>
-        <dependency id="Xamarin.Swift3" version="3.0.0" />
+        <dependency id="Xamarin.Swift3" version="3.0.1" />
     </dependencies>
   </metadata>
   <files>
