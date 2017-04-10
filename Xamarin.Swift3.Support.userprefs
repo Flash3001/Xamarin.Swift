@@ -4,10 +4,10 @@
       <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="20" Column="36" />
       <File FileName="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs" Line="20" Column="27" />
       <File FileName="Xamarin.Swift3.QuartzCore/Properties/AssemblyInfo.cs" Line="20" Column="34" />
-      <File FileName="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs" Line="20" Column="34" />
+      <File FileName="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs" Line="22" Column="47" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
