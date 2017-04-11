@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Xamarin.Swift3/Properties/AssemblyInfo.cs">
     <Files>
-      <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="20" Column="36" />
+      <File FileName="Xamarin.Swift3/Properties/AssemblyInfo.cs" Line="28" Column="1" />
       <File FileName="Xamarin.Swift3.AssetsLibrary/Properties/AssemblyInfo.cs" Line="20" Column="27" />
-      <File FileName="Xamarin.Swift3.QuartzCore/Properties/AssemblyInfo.cs" Line="20" Column="34" />
-      <File FileName="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs" Line="22" Column="47" />
+      <File FileName="Xamarin.Swift3.QuartzCore/Properties/AssemblyInfo.cs" Line="20" Column="38" />
+      <File FileName="Xamarin.Swift3.Core/Properties/AssemblyInfo.cs" Line="16" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
