@@ -9,7 +9,7 @@
 param(
     [Parameter(Mandatory=$true)][string]$version,
     [Parameter(Mandatory=$true)][string]$releaseNotes,
-    [Boolean]$sendPackage
+    [Parameter(Mandatory=$true)][Boolean]$sendPackage
 )
 
 $baseNuspec = Get-Content base.nuspec
