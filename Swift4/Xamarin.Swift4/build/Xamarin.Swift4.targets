@@ -1,0 +1,32 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="Microsoft.Build.Tasks.Copy" Condition="$(OS) == 'Windows'" AssemblyFile="Xamarin.iOS.Tasks.dll"/>
+  <UsingTask TaskName="Microsoft.Build.Tasks.RemoveDir" Condition="$(OS) == 'Windows'"  AssemblyFile="Xamarin.iOS.Tasks.dll"/>
+  <UsingTask TaskName="Microsoft.Build.Tasks.Delete" Condition="$(OS) == 'Windows'" AssemblyFile="Xamarin.iOS.Tasks.dll"/> 
+  <PropertyGroup Condition="'$(Platform)' == 'iPhoneSimulator'">
+    <CreateAppBundleDependsOn>
+		$(CreateAppBundleDependsOn);
+      	_CopySwiftLibsSimulator;
+	</CreateAppBundleDependsOn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'iPhone'">
+	<_CompileToNativeDependsOn>
+		_RemoveExtraLibs;
+		$(_CompileToNativeDependsOn);
+	</_CompileToNativeDependsOn>
+  </PropertyGroup>
+  
+  <Target Name="_CopySwiftLibsSimulator">
+    <ItemGroup>
+        <_SwiftLibsSimulator Include="$(_AppBundlePath)SwiftFrameworksSimulator\libswift*.dylib" />
+    </ItemGroup>
+    <ItemGroup>
+        <_SwiftLibsDevice Include="$(_AppBundlePath)Frameworks\libswift*.dylib" />
+    </ItemGroup>
+    <Delete SessionId="$(BuildSessionId)" Files="@(_SwiftLibsDevice)" />
+    <Copy SessionId="$(BuildSessionId)" SourceFiles="@(_SwiftLibsSimulator)" DestinationFolder="$(_AppBundlePath)Frameworks" />
+  </Target>
+  
+  <Target Name="_RemoveExtraLibs">
+    <RemoveDir SessionId="$(BuildSessionId)" Directories="$(_AppBundlePath)SwiftFrameworksSimulator" />
+  </Target>
+</Project>

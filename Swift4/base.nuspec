@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$id$</title>
+    <authors>Flash3001</authors>
+    <owners>Flash3001</owners>
+    <licenseUrl>https://raw.githubusercontent.com/Flash3001/Xamarin.Swift3.Support/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Flash3001/Xamarin.Swift3.Support</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>This package gives Xamarin support for Swift4.
+    
+    Includes $lib$</description>
+    <releaseNotes>$releaseNotes$</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Swift4 runtime xamarin $lib$</tags>
+    <dependencies>
+        <dependency id="Xamarin.Swift4" version="4.0.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\xamarinios10\*.dll" target="lib\xamarinios10\" />
+  </files>
+</package>

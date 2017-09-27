@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xamarin.Swift4.Support</id>
+    <version>4.0.0.0</version>
+    <title>Xamarin.Swift4.Support</title>
+    <authors>Flash3001</authors>
+    <owners>Flash3001</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Gives Xamarin.iOS bindings support for core Swift 4 libraries.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Swift SwiftSupport 4</tags>
+  </metadata>
+</package>
