@@ -1,4 +1,65 @@
-# Xamarin.Swift3.Support
+# Xamarin.Swift4.Support
+The packages for Swift 4 and 3.2 aren't uploaded to Nuget as an update to the old ones, but as entire new set of packages - I guess the initial name for the packages was not very good.
+
+The new libraries (8 in total) added in Xcode 9 are:
+- libswiftAccelerate
+- libswiftARKit
+- libswiftCoreFoundation
+- libswiftMediaPlayer
+- libswiftMetal
+- libswiftMetalKit
+- libswiftModelIO
+- libswiftVision
+
+If you are using Swift 4 or 3.2 you should be using this packages:
+
+https://www.nuget.org/packages/Xamarin.Swift4/
+
+<h4>Libraries:</h4>
+
+- **https://www.nuget.org/packages/Xamarin.Swift4.Accelerate/**
+- **https://www.nuget.org/packages/Xamarin.Swift4.ARKit/**
+- https://www.nuget.org/packages/Xamarin.Swift4.AssetsLibrary/
+- https://www.nuget.org/packages/Xamarin.Swift4.AVFoundation/
+- https://www.nuget.org/packages/Xamarin.Swift4.CallKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.CloudKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.Contacts/
+- https://www.nuget.org/packages/Xamarin.Swift4.Core/
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreAudio/
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreData/
+- **https://www.nuget.org/packages/Xamarin.Swift4.CoreFoundation/**
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreGraphics/
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreImage/
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreLocation/
+- https://www.nuget.org/packages/Xamarin.Swift4.CoreMedia/
+- https://www.nuget.org/packages/Xamarin.Swift4.Darwin/
+- https://www.nuget.org/packages/Xamarin.Swift4.Dispatch/
+- https://www.nuget.org/packages/Xamarin.Swift4.Foundation/
+- https://www.nuget.org/packages/Xamarin.Swift4.GameplayKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.GLKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.HomeKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.MapKit/
+- **https://www.nuget.org/packages/Xamarin.Swift4.MediaPlayer/**
+- **https://www.nuget.org/packages/Xamarin.Swift4.Metal/**
+- **https://www.nuget.org/packages/Xamarin.Swift4.MetalKit/**
+- **https://www.nuget.org/packages/Xamarin.Swift4.ModelIO/**
+- https://www.nuget.org/packages/Xamarin.Swift4.Intents/
+- https://www.nuget.org/packages/Xamarin.Swift4.ObjectiveC/
+- https://www.nuget.org/packages/Xamarin.Swift4.OS/
+- https://www.nuget.org/packages/Xamarin.Swift4.Photos/
+- https://www.nuget.org/packages/Xamarin.Swift4.QuartzCore/
+- https://www.nuget.org/packages/Xamarin.Swift4.RemoteMirror/
+- https://www.nuget.org/packages/Xamarin.Swift4.SceneKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.SIMD/
+- https://www.nuget.org/packages/Xamarin.Swift4.SpriteKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.SwiftOnoneSupport/
+- https://www.nuget.org/packages/Xamarin.Swift4.UIKit/
+- **https://www.nuget.org/packages/Xamarin.Swift4.Vision/**
+- https://www.nuget.org/packages/Xamarin.Swift4.WatchKit/
+- https://www.nuget.org/packages/Xamarin.Swift4.XCTest/
+
+
+# Xamarin.Swift3.Support 
 
 Xamarin doesn't yet provide support for binding Swift libraries. 
 This project is a try to provide all Swift3 runtime/libraries in a organized way. 
@@ -58,7 +119,7 @@ Use this script to create this SwiftSupport folder: https://github.com/Flash3001
 
 
 <h2>License</h2>
-Copyright 2016 Lucas Teixeira
+Copyright 2017 Lucas Teixeira
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
