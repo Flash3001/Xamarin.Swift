@@ -108,7 +108,8 @@ https://www.nuget.org/packages/Xamarin.Swift3/
 - https://www.nuget.org/packages/Xamarin.Swift3.XCTest/
 
 <h2>Walkthrough</h2>
-If you need a full walkthrough on How To Bind Swift Libries, you can find it here: http://stackoverflow.com/documentation/xamarin.ios/6091/binding-swift-libraries
+If you need a full walkthrough on How To Bind Swift Libries, you can find it here: 
+https://medium.com/@Flash3001/binding-swift-libraries-xamarin-ios-ff32adbc7c76
 
 <h2>Takeaways</h2>
 When creating the IPA to publish the final app you might get the following error:
