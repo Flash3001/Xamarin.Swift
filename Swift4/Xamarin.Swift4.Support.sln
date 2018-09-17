@@ -83,6 +83,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift4.MetalKIt", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift4.ModelIO", "Xamarin.Swift4.ModelIO\Xamarin.Swift4.ModelIO.csproj", "{0B055072-6AD5-4662-8F55-710ED2CC4846}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift4.NaturalLanguage", "Xamarin.Swift4.NaturalLanguage\Xamarin.Swift4.NaturalLanguage.csproj", "{7A9E51FB-7197-40BA-89B3-39B368823287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Swift4.Network", "Xamarin.Swift4.Network\Xamarin.Swift4.Network.csproj", "{618B83A9-9629-4FBB-94B7-4B2A0B8CFD5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -253,5 +257,13 @@ Global
 		{0B055072-6AD5-4662-8F55-710ED2CC4846}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B055072-6AD5-4662-8F55-710ED2CC4846}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B055072-6AD5-4662-8F55-710ED2CC4846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9E51FB-7197-40BA-89B3-39B368823287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9E51FB-7197-40BA-89B3-39B368823287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9E51FB-7197-40BA-89B3-39B368823287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9E51FB-7197-40BA-89B3-39B368823287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{618B83A9-9629-4FBB-94B7-4B2A0B8CFD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{618B83A9-9629-4FBB-94B7-4B2A0B8CFD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{618B83A9-9629-4FBB-94B7-4B2A0B8CFD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{618B83A9-9629-4FBB-94B7-4B2A0B8CFD5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
