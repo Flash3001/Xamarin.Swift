@@ -3,7 +3,7 @@
     <Files>
       <File FileName="Xamarin.Swift4.NaturalLanguage/Properties/AssemblyInfo.cs" Line="7" Column="57" />
       <File FileName="Xamarin.Swift4.NaturalLanguage/Xamarin.Swift4.NaturalLanguage.csproj" Line="10" Column="49" />
-      <File FileName="Xamarin.Swift4.Network/Xamarin.Swift4.Network.csproj" Line="16" Column="31" />
+      <File FileName="Xamarin.Swift4.Network/Xamarin.Swift4.Network.csproj" Line="30" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
