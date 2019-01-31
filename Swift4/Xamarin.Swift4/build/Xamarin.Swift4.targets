@@ -1,30 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <UsingTask TaskName="Microsoft.Build.Tasks.Copy" Condition="$(OS) == 'Windows'" AssemblyFile="Xamarin.iOS.Tasks.dll"/>
-  <UsingTask TaskName="Microsoft.Build.Tasks.RemoveDir" Condition="$(OS) == 'Windows'"  AssemblyFile="Xamarin.iOS.Tasks.dll"/>
-  <UsingTask TaskName="Microsoft.Build.Tasks.Delete" Condition="$(OS) == 'Windows'" AssemblyFile="Xamarin.iOS.Tasks.dll"/> 
-  <PropertyGroup Condition="'$(Platform)' == 'iPhoneSimulator'">
-    <CreateAppBundleDependsOn>
-    $(CreateAppBundleDependsOn);
-        _CopySwiftLibsSimulator;
-    </CreateAppBundleDependsOn>
-  </PropertyGroup>
+<Project DefaultTargets="Build"  ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="Microsoft.Build.Tasks.Copy" Condition="$(OS) == 'Windows'" AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll"/>
+  <UsingTask TaskName="Microsoft.Build.Tasks.RemoveDir" Condition="$(OS) == 'Windows'"  AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll"/>
+  <UsingTask TaskName="Microsoft.Build.Tasks.Delete" Condition="$(OS) == 'Windows'" AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll"/> 
 
-  <PropertyGroup Condition="'$(Platform)' == 'iPhone'">
-    <_CompileToNativeDependsOn>
-      _RemoveExtraLibs;
-      $(_CompileToNativeDependsOn);
-    </_CompileToNativeDependsOn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Platform)' == 'iPhone'">
-    <_CoreCodesignDependsOn>
-      _CodesignSwift;
-      $(_CoreCodesignDependsOn);
-    </_CoreCodesignDependsOn>
-  </PropertyGroup>
-  
-  <Target Name="_CopySwiftLibsSimulator">
+  <Target Name="_CopySwiftLibsSimulator" Condition="'$(Platform)' == 'iPhoneSimulator'" BeforeTargets="_CreateAppBundle"  >
     <ItemGroup>
         <_SwiftLibsSimulator Include="$(_AppBundlePath)SwiftFrameworksSimulator\libswift*.dylib" />
     </ItemGroup>
@@ -35,7 +15,7 @@
     <Copy SessionId="$(BuildSessionId)" SourceFiles="@(_SwiftLibsSimulator)" DestinationFolder="$(_AppBundlePath)Frameworks" />
   </Target>
 
-  <Target Name="_CodesignSwift">
+  <Target Name="_CodesignSwift" Condition="'$(Platform)' == 'iPhone'" BeforeTargets="CoreCodesign">
     <ItemGroup>
         <_SwiftLibsDevice Include="$(_AppBundlePath)Frameworks\libswift*.dylib" />
     </ItemGroup>
@@ -58,7 +38,7 @@
     </Codesign>
     </Target>
 
-  <Target Name="_RemoveExtraLibs">
+  <Target Name="_RemoveExtraLibs" Condition="'$(Platform)' == 'iPhone'" BeforeTargets="_CompileToNative">
     <RemoveDir SessionId="$(BuildSessionId)" Directories="$(_AppBundlePath)SwiftFrameworksSimulator" />
   </Target>
 </Project>
