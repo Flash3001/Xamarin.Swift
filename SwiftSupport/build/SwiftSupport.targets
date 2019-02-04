@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="Microsoft.Build.Tasks.Exec" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll" />
+    
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  
+    <!-- Windows .app/Frameworks -->
+    <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations">
+        <ProduceIncludeFrameworksCommand 
+                       SessionId="$(BuildSessionId)"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       MtouchArch="$(MtouchArch)"
+                       Frameworks="@(_Frameworks)" >
+                
+            <Output TaskParameter="Command" PropertyName="_FindDependenciesCommand" />
+        </ProduceIncludeFrameworksCommand>
+            
+        <Exec SessionId="$(BuildSessionId)" Command="$(_FindDependenciesCommand)" ConsoleToMSBuild="true" ContinueOnError="true" />
+    </Target>
+    
+    <!-- macOS .app/Framework -->
+    <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures">
+        <ScanSwiftTask SessionId="$(BuildSessionId)"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Frameworks="@(_Frameworks)" >
+            
+            <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
+        </ScanSwiftTask>
+        
+        <IncludeSwiftTask SessionId="$(BuildSessionId)"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Resources="$(_SwiftDependencies)" 
+                       MtouchArch="$(MtouchArch)" />
+     </Target>
+    
+     <!-- * Build iTunes Package Archive -->
+     <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
+         <ProduceIncludeSwiftSupportCommand 
+                       SessionId="$(BuildSessionId)"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)"
+                       ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
+                
+            <Output TaskParameter="Command" PropertyName="_SwiftSupportIPACommand" />
+        </ProduceIncludeSwiftSupportCommand>
+    
+        <Exec SessionId="$(BuildSessionId)" Command="$(_SwiftSupportIPACommand)" ContinueOnError="true"  />
+        
+        <ItemGroup>
+            <_IpaPackageSource Include="$(DeviceSpecificIntermediateOutputPath)ipa\SwiftSupport" />
+        </ItemGroup>
+     </Target>
+     
+     <!-- Archive for Publishing -->
+     <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
+        <ProduceIncludeSwiftSupportCommand 
+                   SessionId="$(BuildSessionId)"
+                   OutputPath="$(_AppBundlePath)" 
+                   XcodePath="$(_SdkDevPath)" 
+                   SdkPlatform="$(_SdkPlatform)"
+                   ArchiveOrIpaDir="$(ArchiveDir)" >
+            
+            <Output TaskParameter="Command" PropertyName="_ArchiveSwiftCommand" />
+        </ProduceIncludeSwiftSupportCommand>
+
+        <Exec SessionId="$(BuildSessionId)" Command="$(_ArchiveSwiftCommand)" ContinueOnError="true"  />
+     </Target>
+</Project>
