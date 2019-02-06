@@ -5,7 +5,8 @@
   <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
   <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
   <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />
-  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" /> 
+  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
   
     <!-- Windows .app/Frameworks -->
     <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations">
@@ -25,8 +26,17 @@
     
     <!-- macOS .app/Framework -->
     <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures">
-        <ScanSwiftTask SessionId="$(BuildSessionId)"
-                       OutputPath="$(_AppBundlePath)" 
+        <PropertyGroup>
+            <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+        </PropertyGroup>
+        
+        <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Frameworks="@(_Frameworks)"
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)" />
+        
+        <ScanSwiftTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
                        Frameworks="@(_Frameworks)" >
@@ -34,8 +44,7 @@
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
         </ScanSwiftTask>
         
-        <IncludeSwiftTask SessionId="$(BuildSessionId)"
-                       OutputPath="$(_AppBundlePath)" 
+        <IncludeSwiftTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
                        Resources="$(_SwiftDependencies)" 
