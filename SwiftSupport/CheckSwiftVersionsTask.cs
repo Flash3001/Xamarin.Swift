@@ -11,7 +11,7 @@ namespace SwiftSupport
 {
     public class CheckSwiftVersionsTask : BaseTask
     {
-        private Regex _frameworkNameRegex = new Regex(@"(?<path>.*Frameworks/.+\.framework)/(?<name>.+)");
+        private Regex _frameworkNameRegex = new Regex(@"(?<path>.*\.framework)/(?<name>.+)");
         private Regex _frameworkVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\)).*");
         private Regex _installedVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\))(.*Target.*)?");
 
@@ -106,6 +106,8 @@ namespace SwiftSupport
 
         private Tuple<string, string> ParseFramework(ITaskItem framework)
         {
+            Log.LogMessage($"Looking for Swift version on: {framework.ItemSpec}");
+
             var frameworkMatch = _frameworkNameRegex.Match(framework.ItemSpec);
             if (frameworkMatch.Success == false)
             {
@@ -117,10 +119,16 @@ namespace SwiftSupport
 
             var headerPath = Path.Combine(frameworPath, "Headers", $"{frameworkName}-Swift.h");
 
+            Log.LogMessage($"Expected Swift header on: {headerPath}");
+
             if (File.Exists(headerPath) == false)
             {
+                Log.LogMessage($"{headerPath} do not exist.");
                 return null;
             }
+
+            Log.LogMessage($"{headerPath} exists.");
+
 
             return new Tuple<string, string>(frameworkName, headerPath);
         }

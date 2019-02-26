@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" /> 
+  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  
+    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CompileToNative;">
+        <PropertyGroup>
+            <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+        </PropertyGroup>
+        
+        <ItemGroup>
+            <Frameworks Include="$(IntermediateOutputPath)mmp-cache\**\*framework\*" />
+        </ItemGroup>
+        
+        <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)\Contents" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="MacOSX" 
+                       Frameworks="@(Frameworks)"
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)" />
+        
+        <ScanSwiftTask OutputPath="$(_AppBundlePath)\Contents" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="MacOSX" 
+                       Frameworks="@(Frameworks)">
+            
+            <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
+        </ScanSwiftTask>
+        
+        <IncludeSwiftTask OutputPath="$(_AppBundlePath)\Contents" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="MacOSX" 
+                       Resources="$(_SwiftDependencies)" 
+                       MtouchArch="$(XamMacArch)" />
+     </Target>
+</Project>

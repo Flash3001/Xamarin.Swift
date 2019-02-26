@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" /> 
+  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  
+    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
+        <PropertyGroup>
+            <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+        </PropertyGroup>
+        
+        <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Frameworks="@(_Frameworks)"
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)" />
+        
+        <ScanSwiftTask OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Frameworks="@(_Frameworks)" >
+            
+            <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
+        </ScanSwiftTask>
+        
+        <IncludeSwiftTask OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       Resources="$(_SwiftDependencies)" 
+                       MtouchArch="$(MtouchArch)" />
+     </Target>
+    
+     <!-- * Build iTunes Package Archive -->
+     <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
+         <ProduceIncludeSwiftSupportCommand 
+                       SessionId="$(BuildSessionId)"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)"
+                       ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
+                
+            <Output TaskParameter="Command" PropertyName="_SwiftSupportIPACommand" />
+        </ProduceIncludeSwiftSupportCommand>
+    
+        <Exec SessionId="$(BuildSessionId)" Command="$(_SwiftSupportIPACommand)" ContinueOnError="true"  />
+        
+        <ItemGroup>
+            <_IpaPackageSource Include="$(DeviceSpecificIntermediateOutputPath)ipa\SwiftSupport" />
+        </ItemGroup>
+     </Target>
+     
+     <!-- Archive for Publishing -->
+     <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
+        <ProduceIncludeSwiftSupportCommand 
+                   SessionId="$(BuildSessionId)"
+                   OutputPath="$(_AppBundlePath)" 
+                   XcodePath="$(_SdkDevPath)" 
+                   SdkPlatform="$(_SdkPlatform)"
+                   ArchiveOrIpaDir="$(ArchiveDir)" >
+            
+            <Output TaskParameter="Command" PropertyName="_ArchiveSwiftCommand" />
+        </ProduceIncludeSwiftSupportCommand>
+
+        <Exec SessionId="$(BuildSessionId)" Command="$(_ArchiveSwiftCommand)" ContinueOnError="true"  />
+     </Target>
+</Project>

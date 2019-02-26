@@ -50,10 +50,16 @@
     <Compile Include="CheckSwiftVersionsTask.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build\SwiftSupport.targets">
+    <None Include="build\SwiftSupport-ios.targets">
       <SubType>Designer</SubType>
     </None>
     <None Include="Readme.md" />
+    <None Include="build\SwiftSupport-tvos.targets">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="build\SwiftSupport-macos.targets">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="build\" />

@@ -25,7 +25,7 @@
     </Target>
     
     <!-- macOS .app/Framework -->
-    <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures">
+    <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
         </PropertyGroup>

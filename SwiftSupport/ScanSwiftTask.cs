@@ -22,6 +22,8 @@ namespace SwiftSupport
 
         public override bool Execute()
         {
+            Log.LogMessage(MessageImportance.Normal, $"Frameworks: {string.Join(", ", Frameworks.Select(c => c.ItemSpec))}"); // debug
+
             var dependencies = new SafeList<Dependency>();
 
             void AddRange(IEnumerable<string> toAdd)
