@@ -33,10 +33,16 @@
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
+                       AppManifest="$(_AppManifest)"
                        Frameworks="@(_Frameworks)"
-                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)" />
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
+            
+            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+        </CheckSwiftVersionsTask>
         
-        <ScanSwiftTask OutputPath="$(_AppBundlePath)" 
+        <ScanSwiftTask Condition="$(_ShouldIncludeSwiftDylibs)"
+                       OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
                        Frameworks="@(_Frameworks)" >
@@ -44,16 +50,33 @@
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
         </ScanSwiftTask>
         
-        <IncludeSwiftTask OutputPath="$(_AppBundlePath)" 
+        <IncludeSwiftTask Condition="$(_ShouldIncludeSwiftDylibs)" 
+                       OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       Resources="$(_SwiftDependencies)" 
+                       Resources="$(_SwiftDependencies)"
                        MtouchArch="$(MtouchArch)" />
      </Target>
     
      <!-- * Build iTunes Package Archive -->
      <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
-         <ProduceIncludeSwiftSupportCommand 
+       <PropertyGroup>
+         <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
+       </PropertyGroup>
+       
+       <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
+                       AppManifest="$(_AppManifest)"
+                       Frameworks="@(_Frameworks)"
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
+            
+            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+        </CheckSwiftVersionsTask>
+
+        <ProduceIncludeSwiftSupportCommand Condition="$(_ShouldIncludeSwiftDylibs)"
                        SessionId="$(BuildSessionId)"
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
@@ -63,7 +86,7 @@
             <Output TaskParameter="Command" PropertyName="_SwiftSupportIPACommand" />
         </ProduceIncludeSwiftSupportCommand>
     
-        <Exec SessionId="$(BuildSessionId)" Command="$(_SwiftSupportIPACommand)" ContinueOnError="true"  />
+        <Exec SessionId="$(BuildSessionId)" Condition="'$(_SwiftSupportIPACommand)' != ''"  Command="$(_SwiftSupportIPACommand)" ContinueOnError="true"  />
         
         <ItemGroup>
             <_IpaPackageSource Include="$(DeviceSpecificIntermediateOutputPath)ipa\SwiftSupport" />
@@ -72,7 +95,23 @@
      
      <!-- Archive for Publishing -->
      <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
-        <ProduceIncludeSwiftSupportCommand 
+       <PropertyGroup>
+         <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
+       </PropertyGroup>
+       
+       <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"
+                       OutputPath="$(_AppBundlePath)" 
+                       XcodePath="$(_SdkDevPath)" 
+                       SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
+                       AppManifest="$(_AppManifest)"
+                       Frameworks="@(_Frameworks)"
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
+            
+            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+        </CheckSwiftVersionsTask>
+        
+        <ProduceIncludeSwiftSupportCommand Condition="$(_ShouldIncludeSwiftDylibs)"
                    SessionId="$(BuildSessionId)"
                    OutputPath="$(_AppBundlePath)" 
                    XcodePath="$(_SdkDevPath)" 
@@ -82,6 +121,6 @@
             <Output TaskParameter="Command" PropertyName="_ArchiveSwiftCommand" />
         </ProduceIncludeSwiftSupportCommand>
 
-        <Exec SessionId="$(BuildSessionId)" Command="$(_ArchiveSwiftCommand)" ContinueOnError="true"  />
+        <Exec SessionId="$(BuildSessionId)" Condition="'$(_ArchiveSwiftCommand)' != ''"  Command="$(_ArchiveSwiftCommand)" ContinueOnError="true"  />
      </Target>
 </Project>

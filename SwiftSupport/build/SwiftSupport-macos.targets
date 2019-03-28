@@ -16,10 +16,15 @@
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
+                       AppManifest="$(_AppManifest)"
                        Frameworks="@(Frameworks)"
-                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)" />
-        
-        <ScanSwiftTask OutputPath="$(_AppBundlePath)\Contents" 
+                       ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
+            
+             <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+        </CheckSwiftVersionsTask>
+                
+        <ScanSwiftTask Condition="$(_ShouldIncludeSwiftDylibs)" 
+                       OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
                        Frameworks="@(Frameworks)">
@@ -27,7 +32,8 @@
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
         </ScanSwiftTask>
         
-        <IncludeSwiftTask OutputPath="$(_AppBundlePath)\Contents" 
+        <IncludeSwiftTask Condition="$(_ShouldIncludeSwiftDylibs)" 
+                       OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
                        Resources="$(_SwiftDependencies)" 

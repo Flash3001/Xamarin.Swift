@@ -9,11 +9,11 @@ using SwiftSupport.Internals;
 
 namespace SwiftSupport
 {
-    public class CheckSwiftVersionsTask : BaseTask
+    public class CheckSwiftVersionsTask : BaseVersionCheckTask
     {
-        private Regex _frameworkNameRegex = new Regex(@"(?<path>.*\.framework)/(?<name>.+)");
-        private Regex _frameworkVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\)).*");
-        private Regex _installedVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\))(.*Target.*)?");
+        private readonly Regex _frameworkNameRegex = new Regex(@"(?<path>.*\.framework)/(?<name>.+)");
+        private readonly Regex _frameworkVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\)).*");
+        private readonly Regex _installedVersionRegex = new Regex(@".*(?<version>Apple Swift version.*\))(.*Target.*)?");
 
         [Required]
         public ITaskItem[] Frameworks { get; set; }
@@ -40,6 +40,8 @@ namespace SwiftSupport
             }
 
             Parallel.Invoke(getInstalledVersion, getFrameworksVersion);
+
+            ShouldIncludeSwiftDylibs = frameworkAndVersion.Count > 0 && NeedToIncludeSwift(installedSwiftVersion, frameworkAndVersion.Values);
 
             return ValidateVersions(installedSwiftVersion, frameworkAndVersion);
         }

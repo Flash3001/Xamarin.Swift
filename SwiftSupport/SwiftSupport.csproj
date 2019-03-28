@@ -48,6 +48,7 @@
     <Compile Include="Internals\SafeList.cs" />
     <Compile Include="Internals\ProcessRunner.cs" />
     <Compile Include="CheckSwiftVersionsTask.cs" />
+    <Compile Include="BaseVersionCheckTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build\SwiftSupport-ios.targets">

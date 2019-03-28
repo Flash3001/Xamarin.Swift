@@ -57,7 +57,7 @@ namespace SwiftSupport
              * I need to say that even though it doenst work the same as macOS it is a huge
              * improvement over the original version - more on that on another comment.
              * 
-             * There are only 2 missing features:
+             * There are 3 missing features:
              * 
              * - There is no way to figure out what are the architectures available on the 
              * current version of Swift on your Xcode, so I had to include a precomputed list.
@@ -72,6 +72,11 @@ namespace SwiftSupport
              * draw this, because dependency explanations are a pain to understand from text.
              * macOS version continue to scan all libraries it finds until there is nothing else
              * to scan.
+             * 
+             * - The final .APP and .IPA files will always include the Swift runtime libraries 
+             * even if the liraries are made with Swift 5 and your target is above iOS 12.2
+             * While developers still give support for iOS lower than 12.2 it should be fine, 
+             * but at some point I need to figure it out.             
              * 
              * Sorry Windows users, at least for now I dont know what can be done to unify things!         
             */
