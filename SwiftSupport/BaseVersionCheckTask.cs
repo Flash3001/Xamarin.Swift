@@ -68,12 +68,18 @@ namespace SwiftSupport
 
             var match = Regex.Match(rawSwiftVersion, pattern);
 
-            return match.Success
-                ? new Version(match.Groups["version"].Value)
-                : null;
+            if (match.Success)
+            {
+                return new Version(match.Groups["version"].Value);
+            }
+            else
+            {
+                Log.LogMessage(MessageImportance.Normal, $"Failed to parse Swift version from string. File a report at https://github.com/Flash3001/Xamarin.SwiftSupport/issues including the following string: {rawSwiftVersion}");
+                return null;
+            }
         }
 
-        protected bool NeedToIncludeSwift(string rawSdkSwiftVersion, IEnumerable<string> rawSwiftVersions)
+        protected bool NeedToIncludeSwift(Version sdkSwiftVersion, IEnumerable<Version> swiftVersions)
         {
             try
             {
@@ -85,13 +91,13 @@ namespace SwiftSupport
                 */
 
                 // Based on Xcode version
-                if (NeedToIncludeSwiftForLibrary(rawSdkSwiftVersion))
+                if (NeedToIncludeSwiftForLibrary(sdkSwiftVersion))
                 {
                     return true;
                 }
 
                 // Based on Framework versions
-                if (rawSwiftVersions.Any(NeedToIncludeSwiftForLibrary))
+                if (swiftVersions.Any(NeedToIncludeSwiftForLibrary))
                 {
                     return true;
                 }
@@ -134,15 +140,8 @@ namespace SwiftSupport
         }
 
 
-        private bool NeedToIncludeSwiftForLibrary(string rawSwiftVersion)
+        private bool NeedToIncludeSwiftForLibrary(Version swiftVersion)
         {
-            var swiftVersion = ParseRawSwiftVersion(rawSwiftVersion);
-            if (swiftVersion == null)
-            {
-                Log.LogMessage(MessageImportance.Normal, $"Including Swift dylibs because we dont know how to parse a string. File a report at https://github.com/Flash3001/Xamarin.SwiftSupport/issues including the following string: {rawSwiftVersion}");
-                return true;
-            }
-
             if (swiftVersion < new Version(5, 0))
             {
                 Log.LogMessage(MessageImportance.Normal, $"Including Swift dylibs because you need a version of Swift lower than 5.");

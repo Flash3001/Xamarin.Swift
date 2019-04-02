@@ -23,8 +23,8 @@ namespace SwiftSupport
 
         public override bool Execute()
         {
-            string installedSwiftVersion = null;
-            var frameworkAndVersion = new ConcurrentDictionary<string, string>();
+            Version installedSwiftVersion = null;
+            var frameworkAndVersion = new ConcurrentDictionary<string, Version>();
 
             void getInstalledVersion()
             {
@@ -46,7 +46,7 @@ namespace SwiftSupport
             return ValidateVersions(installedSwiftVersion, frameworkAndVersion);
         }
 
-        private void ScanAndAddFrameworkVersion(ITaskItem lib, ConcurrentDictionary<string, string> frameworkAndVersion)
+        private void ScanAndAddFrameworkVersion(ITaskItem lib, ConcurrentDictionary<string, Version> frameworkAndVersion)
         {
             var framework = ParseFramework(lib);
             if (framework == null)
@@ -63,7 +63,7 @@ namespace SwiftSupport
             frameworkAndVersion.TryAdd(framework.Item1, libSwiftVersion);
         }
 
-        private bool ValidateVersions(string installedSwiftVersion, ConcurrentDictionary<string, string> frameworkAndVersion)
+        private bool ValidateVersions(Version installedSwiftVersion, ConcurrentDictionary<string, Version> frameworkAndVersion)
         {
             if (installedSwiftVersion == null)
             {
@@ -135,7 +135,7 @@ namespace SwiftSupport
             return new Tuple<string, string>(frameworkName, headerPath);
         }
 
-        private string GetInstalledVersion()
+        private Version GetInstalledVersion()
         {
             var installed = this.Run("swift", "--version");
 
@@ -145,10 +145,10 @@ namespace SwiftSupport
                 return null;
             }
 
-            return installedMatch.Groups["version"].Value?.Trim();
+            return ParseRawSwiftVersion(installedMatch.Groups["version"].Value?.Trim());
         }
 
-        private string GetFrameworkVersion(string headerPath)
+        private Version GetFrameworkVersion(string headerPath)
         {
             var frameworkVersion = this.Run("grep", $"swiftlang {headerPath}");
 
@@ -158,7 +158,7 @@ namespace SwiftSupport
                 return null;
             }
 
-            return installedMatch.Groups["version"].Value?.Trim();
+            return ParseRawSwiftVersion(installedMatch.Groups["version"].Value?.Trim());
         }
     }
 }
