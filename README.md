@@ -1,3 +1,5 @@
+#TO BE UPDATED
+
 # Xamarin.Swift4.Support
 The packages for Swift 4 and 3.2 aren't uploaded to Nuget as an update to the old ones, but as entire new set of packages - I guess the initial name for the packages was not very good.
 
