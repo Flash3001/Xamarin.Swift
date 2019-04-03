@@ -5,16 +5,14 @@ using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using SwiftSupport.Shared;
 
 using Parallel = System.Threading.Tasks.Parallel;
 
 namespace SwiftSupport
 {
-    public class IncludeSwiftTask : BaseTask
+    public class IncludeSwiftTask : BaseIncludeSwiftTask
     {
-        [Required]
-        public string MtouchArch { get; set; }
-
         [Required]
         public ITaskItem[] Resources { get; set; }
 
@@ -26,7 +24,7 @@ namespace SwiftSupport
                 return new string[0];
             }
 
-            var archs = RunLipo($"{Path.Combine(GetRuntimePath(), firstItemPath)} -archs");
+            var archs = RunLipo($"'{Path.Combine(GetRuntimePath(), firstItemPath)}' -archs");
 
             return archs.Split(' ').Select(c => c.Trim()).Where(c => !string.IsNullOrEmpty(c)).ToArray();
         }
@@ -40,31 +38,13 @@ namespace SwiftSupport
             Log.LogMessage(MessageImportance.Normal, $"Swift Arcs Needed: {MtouchArch}");
             Log.LogMessage(MessageImportance.Normal, $"Swift Arcs Available: {string.Join(", ", availableArchs)}");
 
-            var archsToRemove = availableArchs.Except(arcs).Where(c => !string.IsNullOrWhiteSpace(c)).ToArray();
-
-            StringBuilder argsBuilder = new StringBuilder();
-
-            if (archsToRemove.Length == 0)
-            {
-                argsBuilder.Append(" -create -output");
-            }
-            else
-            {
-                foreach (var arch in archsToRemove)
-                {
-                    argsBuilder.Append($" -remove {arch}");
-                }
-
-                argsBuilder.Append(" -output");
-            }
-
-            var args = argsBuilder.ToString();
+            var args = GetLipoArgs(availableArchs);
             var xcodePath = GetRuntimePath();
 
             Parallel.ForEach(Resources.Select(c => c.ItemSpec), (dylib) =>
             {
                 Log.LogMessage(MessageImportance.Normal, $"Copying: {dylib}");
-                RunLipo($"{Path.Combine(xcodePath, dylib)} {args} {GetOutputPath(dylib)}");
+                RunLipo($"'{Path.Combine(xcodePath, dylib)}' {args} '{GetOutputPath(dylib)}'");
             });
 
             return true;

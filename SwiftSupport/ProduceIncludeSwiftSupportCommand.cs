@@ -5,10 +5,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using SwiftSupport.Shared;
 
 namespace SwiftSupport
 {
-    public class ProduceIncludeSwiftSupportCommand : BaseTask
+    public class ProduceIncludeSwiftSupportCommand : BaseIncludeSwiftTask
     {
         [Output]
         public ITaskItem Command { get; set; }
@@ -37,10 +38,17 @@ namespace SwiftSupport
 
             StringBuilder lipoCopyArgs = new StringBuilder();
 
+            string args = GetLipoArgs(GetKnownArchs());
             var frameworksFolder = GetOutputPath();
-            var xcodePath = GetRuntimePath();
+
             var swiftSupportPath = Path.Combine(ArchiveOrIpaDir.ItemSpec, "SwiftSupport");
             var platformPath = Path.Combine(swiftSupportPath, GetPlatformName());
+
+            var xcodePath = GetRuntimePath();
+            var toolsPath = GetToolsPath();
+
+            var otool = Path.Combine(toolsPath, "otool");
+            var lipo = Path.Combine(toolsPath, "lipo");
 
             var sb = new StringBuilder();
 
@@ -50,7 +58,7 @@ namespace SwiftSupport
             sb.Append($"ls -1 '{frameworksFolder}'");
             sb.Append($" | grep libswift");
             sb.Append(@" | while read dylib; do ");
-            sb.Append($@"cp {xcodePath}/$dylib ""{platformPath}/$dylib""");
+            sb.Append($@"'{lipo}' ""{xcodePath}/$dylib"" {args} ""{platformPath}/$dylib"""); //sb.Append($@"cp {xcodePath}/$dylib ""{platformPath}/$dylib""");
             sb.Append(@";done");
 
             Command = new TaskItem(sb.ToString());

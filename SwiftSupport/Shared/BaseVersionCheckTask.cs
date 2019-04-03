@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
 
-namespace SwiftSupport
+namespace SwiftSupport.Shared
 {
     public abstract class BaseVersionCheckTask : BaseTask
     {

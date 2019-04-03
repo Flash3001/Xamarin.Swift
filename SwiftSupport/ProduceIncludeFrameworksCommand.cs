@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using SwiftSupport.Shared;
 
 namespace SwiftSupport
 {
-    public class ProduceIncludeFrameworksCommand : BaseTask
+    public class ProduceIncludeFrameworksCommand : BaseIncludeSwiftTask
     {
         [Output]
         public ITaskItem Command { get; set; }
 
         [Required]
         public ITaskItem[] Frameworks { get; set; }
-
-        [Required]
-        public string MtouchArch { get; set; }
 
         public override bool Execute()
         {
@@ -81,14 +79,18 @@ namespace SwiftSupport
              * Sorry Windows users, at least for now I dont know what can be done to unify things!         
             */
 
-            string args = GetLipoArgs();
+            string args = GetLipoArgs(GetKnownArchs());
             var xcodePath = GetRuntimePath();
+            var toolsPath = GetToolsPath();
+
+            var otool = Path.Combine(toolsPath, "otool");
+            var lipo = Path.Combine(toolsPath, "lipo");
 
             var sb = new StringBuilder();
 
             // Scan app Frameworks for Swift Dependencies 
             sb.Append("{ ");
-            sb.Append(string.Join(" & ", Frameworks.Select(c => $"otool -l {c.ItemSpec}")));
+            sb.Append(string.Join(" & ", Frameworks.Select(c => $"'{otool}' -l '{c.ItemSpec}'")));
             sb.Append("; }");
 
             // Clean and sort the results to get single, unique Swift dependency per line
@@ -99,7 +101,7 @@ namespace SwiftSupport
             // Swift libraries can depend on another Swift library - this only goes 1 level deep
             // need to test if it will be an issue - macOS version doesnt work the same way.
             sb.Append(@" | while read line; do ");
-            sb.Append($@"otool -l {xcodePath}/$line");
+            sb.Append($@"'{otool}' -l ""{xcodePath}/$line""");
             sb.Append(@" | grep @rpath/libswift");
             sb.Append(@" | awk -Frpath/ '{print $2}' | awk -F..offset '{print $1}'"); //sb.Append(@" | sed -E 's/^.*@rpath.(.*.dylib).*$/\1/'"); // !#$!@# path translation
             sb.Append(@";done");
@@ -108,42 +110,12 @@ namespace SwiftSupport
             // For each dependency found copy it to the /Frameworks folder
             // Removing the architectures we dont need for the final project
             sb.Append(@" | while read line; do ");
-            sb.Append($@"lipo {xcodePath}/$line {args} {GetOutputPath(string.Empty)}/$line"); // TODO: how to make it parallel?
+            sb.Append($@"'{lipo}' ""{xcodePath}/$line"" {args} ""{GetOutputPath(string.Empty)}/$line"""); // TODO: how to make it parallel?
             sb.Append(@";done");
 
             Command = new TaskItem(sb.ToString());
 
             return true;
-        }
-
-        private string GetLipoArgs()
-        {
-            StringBuilder lipoCopyArgs = new StringBuilder();
-
-            var arcs = MtouchArch.Split(',')
-                                 .Select(c => c.Trim().ToLower())  // lipo uses lower case
-                                 .ToList();
-
-            var archsToRemove = GetKnownArchs()
-                                    .Except(arcs)
-                                    .Where(c => !string.IsNullOrWhiteSpace(c))
-                                    .ToArray();
-
-            if (archsToRemove.Length == 0)
-            {
-                lipoCopyArgs.Append(" -create");
-            }
-            else
-            {
-                foreach (var arch in archsToRemove)
-                {
-                    lipoCopyArgs.Append($" -remove {arch}");
-                }
-            }
-
-            lipoCopyArgs.Append(" -output");
-
-            return lipoCopyArgs.ToString();
         }
     }
 }

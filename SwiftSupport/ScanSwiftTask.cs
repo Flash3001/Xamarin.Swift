@@ -7,7 +7,7 @@ using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
 using SwiftSupport.Internals;
-
+using SwiftSupport.Shared;
 using Parallel = System.Threading.Tasks.Parallel;
 
 namespace SwiftSupport
@@ -73,7 +73,7 @@ namespace SwiftSupport
             // these frameworks depend on which Swift libraries? 
             Log.LogMessage(MessageImportance.Normal, $"Looking for Swift Dependency on: {dylib}");
 
-            return ScanOutputForDylibs(RunOtool($"-l {dylib}"));
+            return ScanOutputForDylibs(RunOtool($"-l '{dylib}'"));
         }
 
         private IEnumerable<string> ScanForDependenciesOnSwift(string dylib)
@@ -81,7 +81,7 @@ namespace SwiftSupport
             // Swift libraries can depend on other Swift libraries
             Log.LogMessage(MessageImportance.Normal, $"Looking for Swift Dependency on: {dylib}");
 
-            return ScanOutputForDylibs(RunOtool($"-l {Path.Combine(GetRuntimePath(), dylib)}"));
+            return ScanOutputForDylibs(RunOtool($"-l '{Path.Combine(GetRuntimePath(), dylib)}'"));
         }
 
         private IEnumerable<string> ScanOutputForDylibs(IEnumerable<string> lines)

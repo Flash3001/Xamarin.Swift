@@ -8,26 +8,30 @@ using System.Threading.Tasks;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Tasks;
 using Microsoft.Build.Utilities;
+using SwiftSupport.Shared;
 
 namespace SwiftSupport.Internals
 {
     internal static class ProcessRunner
     {
-        private static string GetFullPathToTool(string app)
+        private static string GetFullPathToTool(string toolPath, string app)
         {
-            //if (!string.IsNullOrEmpty(ToolPath))
-            //    return Path.Combine(ToolPath, app);
-
-            var path = Path.Combine("/usr/bin", app);
-
-            return File.Exists(path) ? path : app;
+            if (!string.IsNullOrEmpty(toolPath))
+            {
+                return Path.Combine(toolPath, app);
+            }
+            else
+            {
+                var path = Path.Combine("/usr/bin", app);
+                return File.Exists(path) ? path : app;
+            }
         }
 
-        public static string Run(this BaseTask parentTask, string app, string args)
+        public static string Run(this BaseTask parentTask, string toolPath, string app, string args)
         {
             using (var process = new Process())
             {
-                StartAndWaitProcess(app, args, process);
+                StartAndWaitProcess(toolPath, app, args, process);
 
                 using (var stream = process.StandardOutput)
                 {
@@ -36,11 +40,11 @@ namespace SwiftSupport.Internals
             }
         }
 
-        public static IEnumerable<string> RunAndReadLines(this BaseTask parentTask, string app, string args)
+        public static IEnumerable<string> RunAndReadLines(this BaseTask parentTask, string toolPath, string app, string args)
         {
             using (var process = new Process())
             {
-                StartAndWaitProcess(app, args, process);
+                StartAndWaitProcess(toolPath, app, args, process);
 
                 using (var stream = process.StandardOutput)
                 {
@@ -53,9 +57,9 @@ namespace SwiftSupport.Internals
             }
         }
 
-        private static void StartAndWaitProcess(string app, string args, Process process)
+        private static void StartAndWaitProcess(string toolPath, string app, string args, Process process)
         {
-            process.StartInfo = GetInfo(app, args);
+            process.StartInfo = GetInfo(toolPath, app, args);
             process.Start();
             process.WaitForExit();
             
@@ -66,9 +70,9 @@ namespace SwiftSupport.Internals
             }
         }
 
-        private static ProcessStartInfo GetInfo(string app, string args)
+        private static ProcessStartInfo GetInfo(string toolPath, string app, string args)
         {
-            return new ProcessStartInfo(GetFullPathToTool(app), args)
+            return new ProcessStartInfo(GetFullPathToTool(toolPath, app), args)
             {
                 WorkingDirectory = Environment.CurrentDirectory,
                 RedirectStandardOutput = true,

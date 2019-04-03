@@ -7,7 +7,7 @@ using Microsoft.Build.Tasks;
 using Microsoft.Build.Utilities;
 using SwiftSupport.Internals;
 
-namespace SwiftSupport
+namespace SwiftSupport.Shared
 {
     public abstract class BaseTask : Task
     {
@@ -31,6 +31,13 @@ namespace SwiftSupport
             //Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftAccelerate.dylib
 
             return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", "swift", GetPlatformName());
+        }
+
+        protected string GetToolsPath()
+        {
+            ///Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/otool
+
+            return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "bin");
         }
 
         protected string GetPlatformName()
@@ -69,16 +76,16 @@ namespace SwiftSupport
 
         public string RunLipo(string args)
         {
-            Log.LogMessage(MessageImportance.Normal, $"lipo {args}");
+            Log.LogMessage(MessageImportance.Normal, $"{GetToolsPath()}/lipo {args}");
             
-            return this.Run("lipo", args);
+            return this.Run(GetToolsPath(), "lipo", args);
         }
 
         public IEnumerable<string> RunOtool(string args)
         {
-            Log.LogMessage(MessageImportance.Normal, $"otool {args}");
+            Log.LogMessage(MessageImportance.Normal, $"{GetToolsPath()}/otool {args}");
 
-            return this.RunAndReadLines("otool", args);
+            return this.RunAndReadLines(GetToolsPath(), "otool", args);
         }
     }
 }

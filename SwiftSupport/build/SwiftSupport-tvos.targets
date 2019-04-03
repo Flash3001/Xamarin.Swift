@@ -57,6 +57,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)"
+                       MtouchArch="$(MtouchArch)"
                        ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
                 
             <Output TaskParameter="Command" PropertyName="_SwiftSupportIPACommand" />
@@ -87,6 +88,7 @@
                    OutputPath="$(_AppBundlePath)" 
                    XcodePath="$(_SdkDevPath)" 
                    SdkPlatform="$(_SdkPlatform)"
+                   MtouchArch="$(MtouchArch)"
                    ArchiveOrIpaDir="$(ArchiveDir)" >
             
             <Output TaskParameter="Command" PropertyName="_ArchiveSwiftCommand" />

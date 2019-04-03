@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Build.Framework;
 using SwiftSupport.Internals;
+using SwiftSupport.Shared;
 
 namespace SwiftSupport
 {
@@ -137,7 +138,7 @@ namespace SwiftSupport
 
         private Version GetInstalledVersion()
         {
-            var installed = this.Run("swift", "--version");
+            var installed = this.Run(GetToolsPath(), "swift", "--version");
 
             var installedMatch = _installedVersionRegex.Match(installed);
             if (installedMatch.Success == false)
@@ -150,7 +151,7 @@ namespace SwiftSupport
 
         private Version GetFrameworkVersion(string headerPath)
         {
-            var frameworkVersion = this.Run("grep", $"swiftlang {headerPath}");
+            var frameworkVersion = this.Run(string.Empty, "grep", $"swiftlang {headerPath}");
 
             var installedMatch = _frameworkVersionRegex.Match(frameworkVersion);
             if (installedMatch.Success == false)
