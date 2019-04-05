@@ -36,7 +36,7 @@ Xamarin.Swift (https://www.nuget.org/packages/Xamarin.Swift/) is the latest vers
 
   4. Copy those dependencies from Xcode to your project using the correct target OS and device (iOS, iOS Simulator, macOS, tvOS and tvOS Simulator). 
 
-  4.a - Swift dylibs support multiple architectures: armv7, armv7s, arm64 and arm64e for iOS Devices. x86 and x86_64 for iOS Simulator (and others for other devices), but a normal project on Xamarin.iOS usually uses armv7 and arm64 making the inclusion of armv7s and arm64e unnecessary. Only the archs your project uses will be included in your .APP. (it doesn’t affect your final user download on the App Store because Apple already does App Thinning and only sends what that device needs).
+  4.a. - Swift dylibs support multiple architectures: armv7, armv7s, arm64 and arm64e for iOS Devices. x86 and x86_64 for iOS Simulator (and others for other devices), but a normal project on Xamarin.iOS usually uses armv7 and arm64 making the inclusion of armv7s and arm64e unnecessary. Only the archs your project uses will be included in your .APP. (it doesn’t affect your final user download on the App Store because Apple already does App Thinning and only sends what that device needs).
 
   5. If your Release build is checked to generate the IPA it will copy the same files over to the SwiftSupport folder (this folder is a right next to the Payload folder).
 
@@ -84,7 +84,7 @@ Yes, it will work. (except if you have unmatched Xcode installation and rely on 
 
 If you are a binder maintainer: Please do it on your dependency list on Nuget, it will help prevent a bunch of known issues caused by mismatched library and Swift|Xcode version. 
 
-# License<
+# License
 Copyright 2019 Lucas Teixeira
 
 Licensed under the Apache License, Version 2.0 (the "License");
