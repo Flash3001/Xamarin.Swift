@@ -84,7 +84,7 @@ If you are using any of the Xamarin.SwiftSupport, Xamarin.Swift3 or Xamarin.Swif
 
 Yes, it will work. (except if you have unmatched Xcode installation and rely on your build server to have the correct version).
 
-If you are a binder maintainer: Please do it on your dependency list on Nuget, it will help prevent a bunch of known issues caused by mismatched library and Swift|Xcode version. 
+If you maintain a library binding: Please do it on your dependency list on Nuget, it will help prevent a bunch of known issues caused by mismatched library and Swift|Xcode version. 
 
 # License
 Copyright 2019 Lucas Teixeira
