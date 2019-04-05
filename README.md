@@ -2,6 +2,8 @@ Xamarin doesn't provide official support for Swift bindings, but it can still wo
 
 This project is meant to do it for Xamarin.iOS projects with experimental support for Xamarin.tvOS and Xamarin.macOS. You can use the same package if you are using any version of Swift, including Swift 5, 4 and 3. 
 
+You can find it at https://www.nuget.org/packages/Xamarin.Swift/
+
 # To Swift library binders:
 
 If you need more information on how to do the binding and how it differs from a normal Objective-C binding please read 
