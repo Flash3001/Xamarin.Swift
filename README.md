@@ -1,6 +1,6 @@
 Xamarin doesn't provide official support for Swift bindings, but it can still work by leveraging the native connection between Swift and Objective-C. We basically need to be sure the correct runtime and standard libraries are included in the final app.
 
-This project is meant to do it for Xamarin.iOS project with experimental support for Xamarin.tvOS and Xamarin.macOS. You can use the same package if you are using any version of Swift, including Swift 5, 4 and 3. 
+This project is meant to do it for Xamarin.iOS projects with experimental support for Xamarin.tvOS and Xamarin.macOS. You can use the same package if you are using any version of Swift, including Swift 5, 4 and 3. 
 
 # To Swift library binders:
 
@@ -28,17 +28,17 @@ The goal is to automatically include the Swift dylibs (the runtime and standard 
 
 Xamarin.Swift (https://www.nuget.org/packages/Xamarin.Swift/) is the latest version of this project and will: 
 
-1 - Check if the inclusion of those Swift dylibs in the Frameworks folder is really necessary (rules later on).
+  1. Check if the inclusion of those Swift dylibs in the Frameworks folder is really necessary (rules later on).
 
-2 - Check your installed Xcode version against all your app's Swift based .frameworks - if they don't match or are not compatible the build will fail.
+  2. Check your installed Xcode version against all your app's Swift based .frameworks - if they don't match or are not compatible the build will fail.
 
-3 - Figure out each Swift dependency your project have.
+  3. Figure out each Swift dependency your project have.
 
-4 - Copy those dependencies from Xcode to your project using the correct target OS and device (iOS, iOS Simulator, macOS, tvOS and tvOS Simulator). 
+  4. Copy those dependencies from Xcode to your project using the correct target OS and device (iOS, iOS Simulator, macOS, tvOS and tvOS Simulator). 
 
-4.a - Swift dylibs support multiple architectures: armv7, armv7s, arm64 and arm64e for iOS Devices. x86 and x86_64 for iOS Simulator (and others for other devices), but a normal project on Xamarin.iOS usually uses armv7 and arm64 making the inclusion of armv7s and arm64e unnecessary. Only the archs your project uses will be included in your .APP. (it doesn’t affect your final user download on the App Store because Apple already does App Thinning and only sends what that device needs).
+  4.a - Swift dylibs support multiple architectures: armv7, armv7s, arm64 and arm64e for iOS Devices. x86 and x86_64 for iOS Simulator (and others for other devices), but a normal project on Xamarin.iOS usually uses armv7 and arm64 making the inclusion of armv7s and arm64e unnecessary. Only the archs your project uses will be included in your .APP. (it doesn’t affect your final user download on the App Store because Apple already does App Thinning and only sends what that device needs).
 
-5 - If your Release build is checked to generate the IPA it will copy the same files over to the SwiftSupport folder (this folder is a right next to the Payload folder).
+  5. If your Release build is checked to generate the IPA it will copy the same files over to the SwiftSupport folder (this folder is a right next to the Payload folder).
 
 
 <h2>Possible issues</h2>
