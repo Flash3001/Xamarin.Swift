@@ -76,16 +76,20 @@ namespace SwiftSupport
 
             var allMatches = true;
 
+            var swift5 = new Version(5, 0);
+
             foreach (var item in frameworkAndVersion)
             {
                 if (item.Value == installedSwiftVersion)
                 {
                     Log.LogMessage($"{item.Key} Framework: {item.Value}");
                 }
+                else if (item.Value >= swift5 && installedSwiftVersion >= swift5)
+                { 
+                    Log.LogMessage($"{item.Key} Framework: {item.Value}");
+                }
                 else
                 {
-                    // Can we tell which version of Xcode needs to be installed to support X framework?
-                    // Also, how does Swift 5 affect this? 
                     var msg = $"{item.Key} Framework do not match installed Swift version. " +
                         $"Framework: {item.Value}. " +
                         $"Installed: {installedSwiftVersion}. " +
