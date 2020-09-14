@@ -15,6 +15,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
                        MtouchArch="$(MtouchArch)"
                        Frameworks="@(_Frameworks)" >
                 
@@ -45,6 +46,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
                        Frameworks="@(_Frameworks)" >
             
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
@@ -54,6 +56,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
+                       SdkVersion="$(MtouchSdkVersion)"
                        Resources="$(_SwiftDependencies)"
                        MtouchArch="$(MtouchArch)" />
      </Target>
@@ -81,6 +84,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)"
+                       SdkVersion="$(MtouchSdkVersion)"
                        MtouchArch="$(MtouchArch)"
                        ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
                 
@@ -117,6 +121,7 @@
                    OutputPath="$(_AppBundlePath)" 
                    XcodePath="$(_SdkDevPath)" 
                    SdkPlatform="$(_SdkPlatform)"
+                   SdkVersion="$(MtouchSdkVersion)"
                    MtouchArch="$(MtouchArch)"
                    ArchiveOrIpaDir="$(ArchiveDir)" >
             

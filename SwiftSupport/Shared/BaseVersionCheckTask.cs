@@ -9,8 +9,6 @@ namespace SwiftSupport.Shared
 {
     public abstract class BaseVersionCheckTask : BaseTask
     {
-        public string SdkVersion { get; set; }
-
         [Required]
         public ITaskItem AppManifest { get; set; }
 

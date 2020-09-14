@@ -16,6 +16,7 @@
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
+                       SdkVersion="$(MacOSXSdkVersion)"
                        AppManifest="$(_AppManifest)"
                        Frameworks="@(Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
@@ -27,6 +28,7 @@
                        OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
+                       SdkVersion="$(MacOSXSdkVersion)"
                        Frameworks="@(Frameworks)">
             
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
@@ -36,6 +38,7 @@
                        OutputPath="$(_AppBundlePath)\Contents" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="MacOSX" 
+                       SdkVersion="$(MacOSXSdkVersion)"
                        Resources="$(_SwiftDependencies)" 
                        MtouchArch="$(XamMacArch)" />
      </Target>

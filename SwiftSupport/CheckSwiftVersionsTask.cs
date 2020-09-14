@@ -155,7 +155,7 @@ namespace SwiftSupport
 
         private Version GetFrameworkVersion(string headerPath)
         {
-            var frameworkVersion = this.Run(string.Empty, "grep", $"swiftlang {headerPath}");
+            var frameworkVersion = this.Run(string.Empty, "grep", $"swiftlang '{headerPath}'");
 
             var installedMatch = _frameworkVersionRegex.Match(frameworkVersion);
             if (installedMatch.Success == false)

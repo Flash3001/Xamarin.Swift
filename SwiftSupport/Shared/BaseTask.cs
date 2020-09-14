@@ -22,6 +22,9 @@ namespace SwiftSupport.Shared
         [Required]
         public string SdkPlatform { get; set; }
 
+        [Required]
+        public string SdkVersion { get; set; }
+
         protected string GetOutputPath(string path = null) => string.IsNullOrWhiteSpace(path)
             ? Path.Combine(OutputPath, "Frameworks")
             : Path.Combine(OutputPath, "Frameworks", path);
@@ -30,7 +33,7 @@ namespace SwiftSupport.Shared
         {
             //Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftAccelerate.dylib
 
-            return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", "swift", GetPlatformName());
+            return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", GetSwiftFolder(), GetPlatformName());
         }
 
         protected string GetToolsPath()
@@ -40,9 +43,36 @@ namespace SwiftSupport.Shared
             return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "bin");
         }
 
+        public string GetSwiftFolder()
+        {
+            // HACK
+            // I got the feeling this not how we should be doing it.
+            // But I dont have access to AppleSdkSettings.XcodeVersion.Major
+            // Or have any idea why Apple changed "swift" to "swift-5"
+            // can we have "swift-6" or even "swift-4" installed later? 
+
+            var version = new Version(SdkVersion);
+
+            Version useSwift5 = new Version(99, 0);
+
+            switch (SdkPlatform) // C# 8...
+            {
+                case "iPhoneSimulator": 
+                case "iPhoneOS": useSwift5 = new Version(6, 0); break;
+                case "AppleTVSimulator": 
+                case "AppleTVOS": useSwift5 = new Version(13,0); break;
+                case "WatchSimulator":
+                case "WatchOS": useSwift5 = new Version(6, 0); break;
+                case "MacOSX": useSwift5 = new Version(10, 15); break;
+            }
+
+            return version >= useSwift5 ? "swift-5.0" : "swift";
+        }
+
         protected string GetPlatformName()
         {
             var platform = "iphoneos";
+
 
             switch (SdkPlatform) // C# 8...
             {
