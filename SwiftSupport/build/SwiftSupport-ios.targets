@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="Microsoft.Build.Tasks.Exec" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll" />
     
-  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
-  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
-  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />
-  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" /> 
-  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\bin\Debug\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\..\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\..\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" />
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" /> 
+  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\SwiftSupport.dll" />   
   
     <!-- Windows .app/Frameworks -->
     <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations">
@@ -15,7 +15,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        MtouchArch="$(MtouchArch)"
                        Frameworks="@(_Frameworks)" >
                 
@@ -34,7 +34,7 @@
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        AppManifest="$(_AppManifest)"
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
@@ -46,7 +46,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        Frameworks="@(_Frameworks)" >
             
             <Output TaskParameter="SwiftDependencies" PropertyName="_SwiftDependencies" />
@@ -56,7 +56,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        Resources="$(_SwiftDependencies)"
                        MtouchArch="$(MtouchArch)" />
      </Target>
@@ -71,7 +71,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        AppManifest="$(_AppManifest)"
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
@@ -84,7 +84,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)"
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        MtouchArch="$(MtouchArch)"
                        ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
                 
@@ -108,7 +108,7 @@
                        OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
-                       SdkVersion="$(MtouchSdkVersion)"
+                       SdkVersion="$(_SdkVersion)"
                        AppManifest="$(_AppManifest)"
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
@@ -121,7 +121,7 @@
                    OutputPath="$(_AppBundlePath)" 
                    XcodePath="$(_SdkDevPath)" 
                    SdkPlatform="$(_SdkPlatform)"
-                   SdkVersion="$(MtouchSdkVersion)"
+                   SdkVersion="$(_SdkVersion)"
                    MtouchArch="$(MtouchArch)"
                    ArchiveOrIpaDir="$(ArchiveDir)" >
             
