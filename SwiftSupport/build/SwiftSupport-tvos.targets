@@ -9,6 +9,7 @@
     <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
         </PropertyGroup>
         
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
@@ -43,6 +44,10 @@
     
      <!-- * Build iTunes Package Archive -->
      <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
+        <PropertyGroup>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+        </PropertyGroup>
+        
          <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
@@ -75,6 +80,10 @@
      
      <!-- Archive for Publishing -->
      <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
+        <PropertyGroup>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+        </PropertyGroup>
+        
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 

@@ -10,6 +10,10 @@
   
     <!-- Windows .app/Frameworks -->
     <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations">
+        <PropertyGroup>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+        </PropertyGroup>
+        
         <ProduceIncludeFrameworksCommand 
                        SessionId="$(BuildSessionId)"
                        OutputPath="$(_AppBundlePath)" 
@@ -29,6 +33,7 @@
     <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
         </PropertyGroup>
         
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
@@ -65,6 +70,7 @@
      <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
        <PropertyGroup>
          <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
+         <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
        </PropertyGroup>
        
        <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"
@@ -102,6 +108,7 @@
      <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
        <PropertyGroup>
          <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
+         <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
        </PropertyGroup>
        
        <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"

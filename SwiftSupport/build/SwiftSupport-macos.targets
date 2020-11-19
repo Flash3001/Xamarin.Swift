@@ -7,6 +7,7 @@
     <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CompileToNative;">
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+            <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MacOSXSdkVersion)</_SdkVersion>
         </PropertyGroup>
         
         <ItemGroup>
