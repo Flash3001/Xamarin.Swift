@@ -6,10 +6,15 @@
   <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" /> 
   <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\SwiftSupport.dll" />   
   
-    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
+    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_DetectAppManifest;_GenerateBundleName;_DetectSdkLocations;_ComputeTargetArchitectures;_CompileToNative">
+        <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+            <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
         </PropertyGroup>
         
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
@@ -44,8 +49,13 @@
     
      <!-- * Build iTunes Package Archive -->
      <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
+         <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
         <PropertyGroup>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+            <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
         </PropertyGroup>
         
          <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
@@ -80,8 +90,13 @@
      
      <!-- Archive for Publishing -->
      <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
+        <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
         <PropertyGroup>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+            <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
         </PropertyGroup>
         
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 

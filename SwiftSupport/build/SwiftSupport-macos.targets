@@ -4,10 +4,11 @@
     <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" /> 
     <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\SwiftSupport.dll" />   
   
-    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CompileToNative;">
+    <Target Name="_SwiftFrameworksMac" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_DetectAppManifest;_GenerateBundleName;_DetectSdkLocations;_CompileToNative;">
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MacOSXSdkVersion)</_SdkVersion>
+            <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
         </PropertyGroup>
         
         <ItemGroup>

@@ -7,9 +7,13 @@
   <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" />
   <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" /> 
   <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\SwiftSupport.dll" />   
-  
+
     <!-- Windows .app/Frameworks -->
-    <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_CollectFrameworks;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations">
+    <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations;_CompileToNative">
+        <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
         <PropertyGroup>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
         </PropertyGroup>
@@ -30,10 +34,16 @@
     </Target>
     
     <!-- macOS .app/Framework -->
-    <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_CollectFrameworks;_ComputeTargetArchitectures">
+    <Target Name="_SwiftFrameworksMac" Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_DetectAppManifest;_GenerateBundleName;_DetectSdkLocations;_ComputeTargetArchitectures;_CompileToNative">
+        <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
         <PropertyGroup>
             <ShowSwiftErrorAsWarnings Condition=" '$(ShowSwiftErrorAsWarnings)' == '' ">false</ShowSwiftErrorAsWarnings>
+            <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
             <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+            <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
         </PropertyGroup>
         
         <CheckSwiftVersionsTask OutputPath="$(_AppBundlePath)" 
@@ -44,7 +54,7 @@
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
             
-            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+            <!--Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" /-->
         </CheckSwiftVersionsTask>
         
         <ScanSwiftTask Condition="$(_ShouldIncludeSwiftDylibs)"
@@ -68,9 +78,14 @@
     
      <!-- * Build iTunes Package Archive -->
      <Target Name="_SwiftSupportIPA" Condition="'$(BuildIpa)' == 'true'" AfterTargets="_CoreCreateIpa">
+       <ItemGroup>
+         <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+       </ItemGroup>
+
        <PropertyGroup>
          <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
          <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+         <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
        </PropertyGroup>
        
        <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"
@@ -82,7 +97,7 @@
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
             
-            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+            <!--Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" /-->
         </CheckSwiftVersionsTask>
 
         <ProduceIncludeSwiftSupportCommand Condition="$(_ShouldIncludeSwiftDylibs)"
@@ -106,9 +121,14 @@
      
      <!-- Archive for Publishing -->
      <Target Name="_SwiftSupportArchive" Condition="'$(ArchiveOnBuild)' == 'true'" AfterTargets="_CoreArchive">
+        <ItemGroup>
+            <_Frameworks Include="$(_AppBundlePath)Frameworks\*framework\*" />
+        </ItemGroup>
+
        <PropertyGroup>
          <_ShouldIncludeSwiftDylibs>true</_ShouldIncludeSwiftDylibs>
          <_SdkVersion Condition="'$(_SdkVersion)' == ''">$(MtouchSdkVersion)</_SdkVersion>
+         <_AppManifest Condition="'$(_AppManifest)' == ''">$(AppBundleManifest)</_AppManifest>
        </PropertyGroup>
        
        <CheckSwiftVersionsTask Condition="'$(OS)' != 'Windows' and '$(OS)' != 'Windows_NT'"
@@ -120,7 +140,7 @@
                        Frameworks="@(_Frameworks)"
                        ShowErrorAsWarnings="$(ShowSwiftErrorAsWarnings)">
             
-            <Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" />
+            <!--Output TaskParameter="ShouldIncludeSwiftDylibs" PropertyName="_ShouldIncludeSwiftDylibs" /-->
         </CheckSwiftVersionsTask>
         
         <ProduceIncludeSwiftSupportCommand Condition="$(_ShouldIncludeSwiftDylibs)"
