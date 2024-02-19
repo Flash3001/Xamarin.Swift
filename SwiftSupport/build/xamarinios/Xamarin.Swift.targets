@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <UsingTask TaskName="Microsoft.Build.Tasks.Exec" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" AssemblyFile="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.Tasks.dll" />
     
-  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\..\SwiftSupport.dll" />   
-  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\..\SwiftSupport.dll" />   
-  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" />
-  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\SwiftSupport.dll" /> 
-  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeFrameworksCommand" AssemblyFile="..\..\tools\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ProduceIncludeSwiftSupportCommand" AssemblyFile="..\..\tools\SwiftSupport.dll" />   
+  <UsingTask TaskName="SwiftSupport.ScanSwiftTask" AssemblyFile="..\..\tools\SwiftSupport.dll" />
+  <UsingTask TaskName="SwiftSupport.IncludeSwiftTask" AssemblyFile="..\..\tools\SwiftSupport.dll" /> 
+  <UsingTask TaskName="SwiftSupport.CheckSwiftVersionsTask" AssemblyFile="..\..\tools\SwiftSupport.dll" />   
 
     <!-- Windows .app/Frameworks -->
     <Target Name="_SwiftFrameworksWindows" Condition="'$(OS)' == 'Windows' or '$(OS)' == 'Windows_NT'" BeforeTargets="_CreateAppBundle"  DependsOnTargets="_GenerateBundleName;_DetectSdkLocations;_ComputeTargetArchitectures;_DetectSdkLocations;_CompileToNative">

@@ -53,7 +53,7 @@ namespace SwiftSupport.Internals
                     {
                         yield return line;
                     }
-                }
+                };
             }
         }
 

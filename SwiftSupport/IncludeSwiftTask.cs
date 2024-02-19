@@ -16,7 +16,7 @@ namespace SwiftSupport
         [Required]
         public ITaskItem[] Resources { get; set; }
 
-        private string[] AvailableArchs()
+        protected string[] AvailableArchs()
         {
             var firstItemPath = Resources?.FirstOrDefault()?.ItemSpec;
             if (string.IsNullOrWhiteSpace(firstItemPath))
@@ -24,7 +24,7 @@ namespace SwiftSupport
                 return new string[0];
             }
 
-            var archs = RunLipo($"'{Path.Combine(GetRuntimePath(), firstItemPath)}' -archs");
+            var archs = RunLipo($"\"{Path.Combine(GetRuntimePath().First(), firstItemPath)}\" -archs");
 
             return archs.Split(' ').Select(c => c.Trim()).Where(c => !string.IsNullOrEmpty(c)).ToArray();
         }
@@ -39,12 +39,22 @@ namespace SwiftSupport
             Log.LogMessage(MessageImportance.Normal, $"Swift Arcs Available: {string.Join(", ", availableArchs)}");
 
             var args = GetLipoArgs(availableArchs);
-            var xcodePath = GetRuntimePath();
+            var xcodePaths = GetRuntimePath();
 
-            Parallel.ForEach(Resources.Select(c => c.ItemSpec), (dylib) =>
+            var libs = Resources.Select(c => c.ItemSpec).ToList();
+            
+            Parallel.ForEach(libs, (dylib) =>
             {
-                Log.LogMessage(MessageImportance.Normal, $"Copying: {dylib}");
-                RunLipo($"'{Path.Combine(xcodePath, dylib)}' {args} '{GetOutputPath(dylib)}'");
+                foreach (var xcodePath in xcodePaths)
+                {
+                    var path = Path.Combine(xcodePath, dylib);
+
+                    if (File.Exists(path))
+                    {
+                        Log.LogMessage(MessageImportance.Normal, $"Copying: {dylib} from {path}");
+                        RunLipo($"\"{path}\" {args} \"{GetOutputPath(dylib)}\"");
+                    }
+                }
             });
 
             return true;

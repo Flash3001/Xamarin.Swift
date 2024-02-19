@@ -1,72 +1,62 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DAE27BBE-0FFA-43B6-B125-A9E2DC628B61}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <ProductVersion>1.0.0</ProductVersion>
+    <ProductVersion>1.1.0</ProductVersion>
     <RootNamespace>SwiftSupport</RootNamespace>
     <AssemblyName>SwiftSupport</AssemblyName>
-    <SchemaVersion>2.0</SchemaVersion>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <EnableDefaultItems>true</EnableDefaultItems>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+    <PackageId>Xamarin.Swift</PackageId>
+    <Title>Xamarin.Swift</Title>
+    <Description>Include Swift runtime libraries on NET7, Xamarin.iOS, Xamarin.macOS and Xamarin.tvOS projects. Works for Swift 5.</Description>
+    <ReleaseNotes>Support for Xcode 15 and NET 7. This release requires at least Xcode 15 to work.</ReleaseNotes>
+    <Version>1.1.0</Version>
+    <Authors>Flash3001</Authors>
+    <PackageProjectUrl>https://github.com/Flash3001/Xamarin.Swift</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Flash3001/Xamarin.Swift3.Support/master/LICENSE</PackageLicenseUrl>
+    <Tags>Xamarin;iOS;tvOS;macOS;SwiftSupport;Swift;Swift5;NET7-iOS;</Tags>
+    <Company></Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <IncludeBuildOutput>true</IncludeBuildOutput>
+    <IsTool>true</IsTool>
+    <SuppressDependenciesWhenPacking>true</SuppressDependenciesWhenPacking>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Build" />
-    <Reference Include="Microsoft.Build.Engine" />
-    <Reference Include="Microsoft.Build.Framework" />
-    <Reference Include="Microsoft.Build.Tasks.v4.0" />
-    <Reference Include="Microsoft.Build.Utilities.v4.0" />
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IncludeSwiftTask.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScanSwiftTask.cs" />
-    <Compile Include="ProduceIncludeFrameworksCommand.cs" />
-    <Compile Include="ProduceIncludeSwiftSupportCommand.cs" />
-    <Compile Include="Internals\Dependency.cs" />
-    <Compile Include="Internals\SafeList.cs" />
-    <Compile Include="Internals\ProcessRunner.cs" />
-    <Compile Include="CheckSwiftVersionsTask.cs" />
-    <Compile Include="Shared\BaseTask.cs" />
-    <Compile Include="Shared\BaseVersionCheckTask.cs" />
-    <Compile Include="Shared\BaseIncludeSwiftTask.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="build\SwiftSupport-ios.targets">
+    <Content Include="build\xamarinios\Xamarin.Swift.targets">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Readme.md" />
-    <None Include="build\SwiftSupport-tvos.targets">
+      <PackagePath>build\xamarinios\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="build\xamarinmacos\Xamarin.Swift.targets">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="build\SwiftSupport-macos.targets">
+      <PackagePath>build\xamarinmac\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="build\xamarintvos\Xamarin.Swift.targets">
       <SubType>Designer</SubType>
-    </None>
+      <PackagePath>build\xamarintvos\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="build\net7-ios\Xamarin.Swift.targets">
+      <SubType>Designer</SubType>
+      <PackagePath>build\net7.0-ios10\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="build\xamarinmacos\Xamarin.Swift.targets">
+      <SubType>Designer</SubType>
+      <PackagePath>build\net7.0-macos10\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
+    <Content Include="build\xamarintvos\Xamarin.Swift.targets">
+      <SubType>Designer</SubType>
+      <PackagePath>build\net7.0-tvos10\</PackagePath>
+      <Pack>true</Pack>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="build\" />
-    <Folder Include="Internals\" />
-    <Folder Include="Shared\" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.9.5" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

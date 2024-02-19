@@ -80,7 +80,7 @@ namespace SwiftSupport
             */
 
             string args = GetLipoArgs(GetKnownArchs());
-            var xcodePath = GetRuntimePath();
+            var xcodePath = GetRuntimePath().FirstOrDefault(); // TODO if the windows user is including anything from Swift 5.5 this wont work 
             var toolsPath = GetToolsPath();
 
             var otool = Path.Combine(toolsPath, "otool");

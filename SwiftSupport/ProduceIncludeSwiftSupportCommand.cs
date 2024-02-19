@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using SwiftSupport.Internals;
 using SwiftSupport.Shared;
 
 namespace SwiftSupport
@@ -38,13 +40,13 @@ namespace SwiftSupport
 
             StringBuilder lipoCopyArgs = new StringBuilder();
 
-            string args = GetLipoArgs(GetKnownArchs());
             var frameworksFolder = GetOutputPath();
+            string args = GetLipoArgs(GetKnownArchs());
 
             var swiftSupportPath = Path.Combine(ArchiveOrIpaDir.ItemSpec, "SwiftSupport");
             var platformPath = Path.Combine(swiftSupportPath, GetPlatformName());
 
-            var xcodePath = GetRuntimePath();
+            string[] xcodePaths = GetRuntimePath();
             var toolsPath = GetToolsPath();
 
             var otool = Path.Combine(toolsPath, "otool");
@@ -52,13 +54,14 @@ namespace SwiftSupport
 
             var sb = new StringBuilder();
 
-            sb.Append($"mkdir -p '{swiftSupportPath}'; ");
-            sb.Append($"mkdir -p '{platformPath}'; ");
+            sb.Append($"mkdir -p \"{swiftSupportPath}\"; ");
+            sb.Append($"mkdir -p \"{platformPath}\"; ");
 
-            sb.Append($"ls -1 '{frameworksFolder}'");
+            sb.Append($"ls -1 \"{frameworksFolder}\"");
             sb.Append($" | grep libswift");
             sb.Append(@" | while read dylib; do ");
-            sb.Append($@"'{lipo}' ""{xcodePath}/$dylib"" {args} ""{platformPath}/$dylib"""); //sb.Append($@"cp {xcodePath}/$dylib ""{platformPath}/$dylib""");
+            var possiblePaths = xcodePaths.Select(xcodePath => $@"(ls ""{xcodePath}/$dylib"" >> /dev/null 2>&1 && ""{lipo}"" ""{xcodePath}/$dylib"" {args} ""{platformPath}/$dylib"")");
+            sb.Append(string.Join(" || ", possiblePaths)); //sb.Append($@"cp {xcodePath}/$dylib ""{platformPath}/$dylib""");
             sb.Append(@";done");
 
             Command = new TaskItem(sb.ToString());

@@ -29,11 +29,15 @@ namespace SwiftSupport.Shared
             ? Path.Combine(OutputPath, "Frameworks")
             : Path.Combine(OutputPath, "Frameworks", path);
 
-        protected string GetRuntimePath()
+        protected string[] GetRuntimePath()
         {
             //Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/libswiftAccelerate.dylib
 
-            return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", GetSwiftFolder(), GetPlatformName());
+            return new string[2]
+            {
+                Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", "swift-5.0", GetPlatformName()),
+                Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "lib", "swift-5.5", GetPlatformNameSwift55()),
+            };
         }
 
         protected string GetToolsPath()
@@ -43,44 +47,35 @@ namespace SwiftSupport.Shared
             return Path.Combine(XcodePath, "Toolchains", "XcodeDefault.xctoolchain", "usr", "bin");
         }
 
-        public string GetSwiftFolder()
-        {
-            // HACK
-            // I got the feeling this not how we should be doing it.
-            // But I dont have access to AppleSdkSettings.XcodeVersion.Major
-            // Or have any idea why Apple changed "swift" to "swift-5"
-            // can we have "swift-6" or even "swift-4" installed later? 
-
-            var version = new Version(SdkVersion);
-
-            Version useSwift5 = new Version(99, 0);
-
-            switch (SdkPlatform) // C# 8...
-            {
-                case "iPhoneSimulator": 
-                case "iPhoneOS": useSwift5 = new Version(6, 0); break;
-                case "AppleTVSimulator": 
-                case "AppleTVOS": useSwift5 = new Version(13,0); break;
-                case "WatchSimulator":
-                case "WatchOS": useSwift5 = new Version(6, 0); break;
-                case "MacOSX": useSwift5 = new Version(10, 15); break;
-            }
-
-            return version >= useSwift5 ? "swift-5.0" : "swift";
-        }
-
         protected string GetPlatformName()
         {
             var platform = "iphoneos";
-
 
             switch (SdkPlatform) // C# 8...
             {
                 case "AppleTVSimulator": platform = "appletvsimulator"; break;
                 case "AppleTVOS": platform = "appletvos"; break;
                 case "iPhoneSimulator": platform = "iphonesimulator"; break;
-                case "WatchSimulator": platform = "watchsimulator"; break;
+                case "WatchSimulator": platform = "watchos"; break;
                 case "WatchOS": platform = "watchos"; break;
+                case "MacOSX": platform = "macosx"; break;
+                case "iPhoneOS": platform = "iphoneos"; break;
+            }
+
+            return platform;
+        }
+
+        protected string GetPlatformNameSwift55()
+        {
+            var platform = "iphoneos";
+
+            switch (SdkPlatform) 
+            {
+                case "AppleTVSimulator": platform = "appletvsimulator"; break;
+                case "AppleTVOS": platform = "appletvos"; break;
+                case "iPhoneSimulator": platform = "iphonesimulator"; break;
+                case "WatchSimulator": platform = "watchos"; break;
+                case "WatchOS": platform = "watchsimulator"; break;
                 case "MacOSX": platform = "macosx"; break;
                 case "iPhoneOS": platform = "iphoneos"; break;
             }
@@ -90,19 +85,18 @@ namespace SwiftSupport.Shared
 
         protected string[] GetKnownArchs()
         {
-            switch (SdkPlatform) // C# 8...
+            switch (SdkPlatform)
             {
                 case "AppleTVSimulator": return new string[] { "x86_64" };
                 case "AppleTVOS": return new string[] { "arm64" };
-                case "iPhoneSimulator": return new string[] { "i386", "x86_64" };
-                case "WatchSimulator": return new string[] { "i386" };
-                case "WatchOS": return new string[] { "armv7k", "arm64_32" };
+                case "iPhoneSimulator": return new string[] { "x86_64" };
+                case "WatchSimulator": return new string[] { "arm64_32" };
+                case "WatchOS": return new string[] { "arm64_32" };
                 case "MacOSX": return new string[] { "x86_64" };
-                case "iPhoneOS": return new string[] { "armv7", "armv7s", "arm64", "arm64e" };
+                case "iPhoneOS": return new string[] { "arm64" };
                 default: return new string[] { };
             }
         }
-
 
         public string RunLipo(string args)
         {

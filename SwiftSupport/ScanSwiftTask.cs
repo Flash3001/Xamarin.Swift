@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -73,7 +74,9 @@ namespace SwiftSupport
             // these frameworks depend on which Swift libraries? 
             Log.LogMessage(MessageImportance.Normal, $"Looking for Swift Dependency on: {dylib}");
 
-            return ScanOutputForDylibs(RunOtool($"-l '{dylib}'"));
+            var path = Path.Combine(Environment.CurrentDirectory, dylib);
+
+            return ScanOutputForDylibs(RunOtool($"-l \"{path}\""));
         }
 
         private IEnumerable<string> ScanForDependenciesOnSwift(string dylib)
@@ -81,11 +84,27 @@ namespace SwiftSupport
             // Swift libraries can depend on other Swift libraries
             Log.LogMessage(MessageImportance.Normal, $"Looking for Swift Dependency on: {dylib}");
 
-            return ScanOutputForDylibs(RunOtool($"-l '{Path.Combine(GetRuntimePath(), dylib)}'"));
+            var xcodePaths = GetRuntimePath();
+
+            foreach (var xcodePath in xcodePaths)
+            {
+                var path = Path.Combine(xcodePath, dylib);
+
+                Log.LogMessage(MessageImportance.Normal, $"ScanForDependenciesOnSwift: {path}");
+
+                if (File.Exists(path))
+                {
+                    return ScanOutputForDylibs(RunOtool($"-l \"{path}\""));
+                }
+            }
+
+            return new string[0];
         }
 
         private IEnumerable<string> ScanOutputForDylibs(IEnumerable<string> lines)
         {
+            Log.LogMessage(MessageImportance.Normal, $"ScanOutputForDylibs");
+
             // dont know to run grep on ProcessStartInfo
             foreach (var line in lines.Where(c => c.Contains("@rpath/libswift")))
             {
