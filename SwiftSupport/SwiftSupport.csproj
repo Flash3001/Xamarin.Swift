@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>1.2.0</ProductVersion>
     <RootNamespace>SwiftSupport</RootNamespace>
@@ -57,6 +57,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.9.5" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.7" />
   </ItemGroup>
 </Project>
