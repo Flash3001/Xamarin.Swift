@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>1.1.0</ProductVersion>
+    <ProductVersion>1.2.0</ProductVersion>
     <RootNamespace>SwiftSupport</RootNamespace>
     <AssemblyName>SwiftSupport</AssemblyName>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
@@ -11,8 +11,8 @@
     <PackageId>Xamarin.Swift</PackageId>
     <Title>Xamarin.Swift</Title>
     <Description>Include Swift runtime libraries on NET7, Xamarin.iOS, Xamarin.macOS and Xamarin.tvOS projects. Works for Swift 5.</Description>
-    <ReleaseNotes>Support for Xcode 15 and NET 7. This release requires at least Xcode 15 to work.</ReleaseNotes>
-    <Version>1.1.0</Version>
+    <ReleaseNotes>Support for Xcode 15 and NET 7. This release requires at least Xcode 15 to work. Support for Microsoft.iOS 17.5.8018.</ReleaseNotes>
+    <Version>1.2.0</Version>
     <Authors>Flash3001</Authors>
     <PackageProjectUrl>https://github.com/Flash3001/Xamarin.Swift</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/Flash3001/Xamarin.Swift3.Support/master/LICENSE</PackageLicenseUrl>

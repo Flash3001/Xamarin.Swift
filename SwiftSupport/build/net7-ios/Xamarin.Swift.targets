@@ -22,7 +22,7 @@
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)" 
                        SdkVersion="$(_SdkVersion)"
-                       MtouchArch="$(MtouchArch)"
+                       MtouchArch="$(TargetArchitectures)"
                        Frameworks="@(_Frameworks)" >
                 
             <Output TaskParameter="Command" PropertyName="_FindDependenciesCommand" />
@@ -71,7 +71,7 @@
                        SdkPlatform="$(_SdkPlatform)" 
                        SdkVersion="$(_SdkVersion)"
                        Resources="$(_SwiftDependencies)"
-                       MtouchArch="$(MtouchArch)" />
+                       MtouchArch="$(TargetArchitectures)" />
      </Target>
     
      <!-- * Build iTunes Package Archive -->
@@ -104,7 +104,7 @@
                        XcodePath="$(_SdkDevPath)" 
                        SdkPlatform="$(_SdkPlatform)"
                        SdkVersion="$(_SdkVersion)"
-                       MtouchArch="$(MtouchArch)"
+                       MtouchArch="$(TargetArchitectures)"
                        ArchiveOrIpaDir="$(DeviceSpecificIntermediateOutputPath)ipa" >
                 
             <Output TaskParameter="Command" PropertyName="_SwiftSupportIPACommand" />
@@ -147,7 +147,7 @@
                    XcodePath="$(_SdkDevPath)" 
                    SdkPlatform="$(_SdkPlatform)"
                    SdkVersion="$(_SdkVersion)"
-                   MtouchArch="$(MtouchArch)"
+                   MtouchArch="$(TargetArchitectures)"
                    ArchiveOrIpaDir="$(ArchiveDir)" >
             
             <Output TaskParameter="Command" PropertyName="_ArchiveSwiftCommand" />
