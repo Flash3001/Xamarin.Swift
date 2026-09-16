@@ -17,7 +17,9 @@
 
   <Target Name="_CodesignSwift" Condition="'$(Platform)' == 'iPhone'" BeforeTargets="CoreCodesign">
     <ItemGroup>
-        <_SwiftLibsDevice Include="$(_AppBundlePath)Frameworks\libswift*.dylib" />
+        <_SwiftLibsDevice Include="$(_AppBundlePath)Frameworks\libswift*.dylib">
+          <CodesignStampFile>$(DeviceSpecificOutputPath)OnDemandResources-codesign\$(_AppBundleName).app</CodesignStampFile>
+        </_SwiftLibsDevice>
     </ItemGroup>
 
     <PropertyGroup>
